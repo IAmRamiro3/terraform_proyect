@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "main" {
-  name = "/your/log/group/name" 
+  name = "/your/log/group/name"
 }
 
 output "log_group_name" {
