@@ -19,11 +19,20 @@ resource "aws_instance" "example_server" {
 
   tags = {
     Owner = "Ramiro"
-    Name = "example_instance_terraform"
+    Name  = "ramiro-test-instance"
   }
 }
 
 resource "aws_cloudwatch_log_group" "example_log_group" {
-  name = "/example/log/group/terraform"
-  retention_in_days = 7  
+  name              = "/example/log/group"
+  retention_in_days = 7
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "ramiro-test-bucket"
+
+  tags = {
+    Name  = "Ramiro Bucket"
+    Owner = "Ramiro"
+  }
 }
