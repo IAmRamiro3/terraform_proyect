@@ -31,7 +31,3 @@ module "sns" {
 module "lambda" {
   source = "./lambda"
 }
-
-module "api_gateway" {
-  source = "./api_gateway"
-}
