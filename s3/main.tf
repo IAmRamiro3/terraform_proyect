@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "ramiro-test-bucket"
+  bucket = "proyecto-carlos"
 
   tags = {
-    Name  = "Ramiro Bucket"
-    Owner = "Ramiro"
+    Name  = "proyecto-carlos"
+    Owner = "ramiro"
   }
 }
