@@ -46,16 +46,18 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 
 resource "aws_lambda_function" "terraform_lambda_func" {
   filename      = "${path.module}/python/hello-python.zip"
-  function_name = "actualizarS3"
+  function_name = "actualizarS3_Ramiro"
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.lambda_handler"
   runtime       = "python3.8"
+  tracing_config {
+    mode = "Active"
+  }
   depends_on    = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }
 
 resource "aws_api_gateway_rest_api" "my_api" {
-  name        = "my-api-ramiro"
-  description = "My API Gateway Ramiro"
+  name        = "proyectoCarlosAPI_Ramiro"
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -105,8 +107,10 @@ resource "aws_api_gateway_integration_response" "proxy" {
   ]
 }
 
-resource "aws_api_gateway_deployment" "deployment" {
-  depends_on  = [aws_api_gateway_integration.lambda_integration]
-  rest_api_id = aws_api_gateway_rest_api.my_api.id
-  stage_name  = "dev"
+resource "aws_lambda_permission" "allow_api_gateway" {
+  statement_id = "AllowExecutionFromAPIGateway"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.terraform_lambda_func.function_name
+  principal = "apigateway.amazonaws.com"
+  source_arn = "${aws_api_gateway_rest_api.my_api.execution_arn}/*/${aws_api_gateway_method.proxy.http_method}${aws_api_gateway_resource.root.path}"
 }
