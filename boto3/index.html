@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lector de TXT en S3</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #txtContent {
+      white-space: pre-line;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="txtContent"></div>
+  <button onclick="actualizarContenido()">Actualizar</button>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    // URL de tu API Gateway
+    const apiUrl = 'https://7yokcaiqy8.execute-api.us-east-1.amazonaws.com/Test/textfile';
+
+    // Función para obtener y mostrar el contenido del archivo
+    function obtenerContenido() {
+      $.get(apiUrl, function (data) {
+        document.getElementById('txtContent').innerText = data;
+      });
+    }
+
+    // Función para actualizar el contenido al hacer clic en el botón
+    function actualizarContenido() {
+      obtenerContenido();
+    }
+
+    // Llama a la función para obtener y mostrar el contenido al cargar la página
+    obtenerContenido();
+  </script>
+</body>
+</html>
+
