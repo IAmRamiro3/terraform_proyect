@@ -15,6 +15,6 @@ def empty_s3_bucket(bucket_name):
         print(f"Error al vaciar el bucket: {e}")
         return False
 
-bucket_name_to_empty = 'proyecto-carlos-ramiro'  # Reemplaza con el nombre de tu bucket en S3
+bucket_name_to_empty = 'proyecto-carlos-ramiro'
 
 empty_s3_bucket(bucket_name_to_empty)
